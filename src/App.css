@@ -1,0 +1,118 @@
+.app-shell {
+  display: grid;
+  gap: 28px;
+  min-height: 100svh;
+  padding: 28px;
+}
+
+.app-header {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.app-header__brand-block {
+  display: grid;
+  gap: 6px;
+}
+
+.app-header__eyebrow {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.app-header__brand {
+  color: var(--ink);
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.app-nav {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.app-nav__link {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-nav__link:hover {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(72, 84, 96, 0.14);
+  color: var(--ink);
+}
+
+.app-nav__link--active {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(72, 84, 96, 0.14);
+  color: var(--ink);
+}
+
+.app-main {
+  min-width: 0;
+}
+
+.not-found {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+
+.not-found__eyebrow {
+  color: var(--brand-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.not-found__title {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  letter-spacing: -0.05em;
+  line-height: 0.96;
+}
+
+.not-found__copy {
+  color: var(--muted);
+  max-width: 54ch;
+}
+
+.not-found__link {
+  border-radius: 999px;
+  color: var(--ink);
+  display: inline-flex;
+  font-weight: 700;
+  padding: 12px 18px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(72, 84, 96, 0.14);
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 18px;
+  }
+
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
