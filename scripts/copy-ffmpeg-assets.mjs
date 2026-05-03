@@ -1,24 +1,31 @@
-import { cp, mkdir } from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+#!/usr/bin/env node
 
-const scriptDirectory = dirname(fileURLToPath(import.meta.url))
-const workspaceRoot = resolve(scriptDirectory, '..')
-const publicFfmpegDirectory = resolve(workspaceRoot, 'public', 'ffmpeg')
+import { copyFile, mkdir } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
+import { createRequire } from "node:module";
 
-const assetPairs = [
-  {
-    source: resolve(workspaceRoot, 'node_modules', '@ffmpeg', 'core', 'dist', 'esm', 'ffmpeg-core.js'),
-    destination: resolve(publicFfmpegDirectory, 'ffmpeg-core.js'),
-  },
-  {
-    source: resolve(workspaceRoot, 'node_modules', '@ffmpeg', 'core', 'dist', 'esm', 'ffmpeg-core.wasm'),
-    destination: resolve(publicFfmpegDirectory, 'ffmpeg-core.wasm'),
-  },
-]
+const require = createRequire(import.meta.url);
 
-await mkdir(publicFfmpegDirectory, { recursive: true })
+async function main() {
+  const outDir = resolve(process.cwd(), "public/ffmpeg");
+  await mkdir(outDir, { recursive: true });
 
-await Promise.all(
-  assetPairs.map(({ source, destination }) => cp(source, destination))
-)
+  const umdCoreJs = require.resolve("@ffmpeg/core");
+  const distDir = dirname(dirname(umdCoreJs));
+  const esmDir = join(distDir, "esm");
+
+  const coreJs = join(esmDir, "ffmpeg-core.js");
+  const coreWasm = join(esmDir, "ffmpeg-core.wasm");
+
+  await copyFile(coreJs, join(outDir, "ffmpeg-core.js"));
+  await copyFile(coreWasm, join(outDir, "ffmpeg-core.wasm"));
+
+  console.log(`Copied ffmpeg assets to ${outDir}`);
+  console.log(`js: ${coreJs}`);
+  console.log(`wasm: ${coreWasm}`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

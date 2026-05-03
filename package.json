@@ -14,6 +14,7 @@
     "@ffmpeg/core": "^0.12.9",
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
+    "@your-org/video-utils": "file:../video-utils-sdk",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.2"

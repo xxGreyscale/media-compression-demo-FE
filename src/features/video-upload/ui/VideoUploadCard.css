@@ -252,6 +252,118 @@
   margin-bottom: 10px;
 }
 
+.video-upload__thumbnail-strip {
+  align-items: center;
+  background: rgba(245, 241, 232, 0.92);
+  border-top: 1px solid rgba(72, 84, 96, 0.12);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 96px 1fr;
+  padding: 12px 14px;
+}
+
+.video-upload__thumbnail-frame {
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(72, 84, 96, 0.08);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.video-upload__thumbnail {
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+.video-upload__thumbnail-overlay {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(2px);
+  bottom: 0;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity 0.18s ease;
+}
+
+.video-upload__thumbnail-frame:hover .video-upload__thumbnail-overlay {
+  opacity: 1;
+}
+
+.video-upload__thumb-action {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  height: 36px;
+  justify-content: center;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+  width: 36px;
+}
+
+.video-upload__thumb-action:hover {
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+.video-upload__thumbnail-skeleton {
+  animation: thumbnail-pulse 1.4s ease-in-out infinite;
+  background: rgba(72, 84, 96, 0.1);
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes thumbnail-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.video-upload__thumbnail-meta {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.video-upload__thumbnail-eyebrow {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.video-upload__thumbnail-time {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.video-upload__thumbnail-desc {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin: 2px 0 0;
+}
+
 @media (max-width: 840px) {
   .video-upload__title {
     max-width: none;

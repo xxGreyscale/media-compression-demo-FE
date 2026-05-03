@@ -11,10 +11,14 @@ export function VideoUploadCard() {
     isCompressing,
     compressionProgress,
     compressionError,
+    thumbnail,
+    thumbnailUrl,
+    isExtractingThumbnail,
     onFileSelect,
     onPreviewLoaded,
     compressSelectedVideo,
     downloadFile,
+    downloadThumbnail,
     clearSelection,
   } = useVideoUpload();
 
@@ -27,8 +31,7 @@ export function VideoUploadCard() {
   if (compressionError) {
     compressionFeedback = compressionError;
   } else if (compressedFiles) {
-    compressionFeedback =
-      "Compression complete — download either format below.";
+    compressionFeedback = "Compression complete — download either format below.";
   } else if (isCompressing) {
     compressionFeedback = "Encoding in progress…";
   }
@@ -91,15 +94,17 @@ export function VideoUploadCard() {
             >
               Download MP4
             </button>
-            <button
-              type="button"
-              className="video-upload__download"
-              onClick={() => {
-                downloadFile("webm");
-              }}
-            >
-              Download WebM
-            </button>
+            {compressedFiles["webm"] && (
+              <button
+                type="button"
+                className="video-upload__download"
+                onClick={() => {
+                  downloadFile("webm");
+                }}
+              >
+                Download WebM
+              </button>
+            )}
           </>
         )}
       </div>
@@ -147,18 +152,14 @@ export function VideoUploadCard() {
               </span>
               {compressedFiles ? (
                 <ul className="video-upload__output-list">
-                  <li>
-                    <strong>MP4</strong>
-                    <span className="video-upload__meta-subvalue">
-                      {formatFileSize(compressedFiles.mp4.size)}
-                    </span>
-                  </li>
-                  <li>
-                    <strong>WebM</strong>
-                    <span className="video-upload__meta-subvalue">
-                      {formatFileSize(compressedFiles.webm.size)}
-                    </span>
-                  </li>
+                  {Object.entries(compressedFiles).map(([fmt, file]) => (
+                    <li key={fmt}>
+                      <strong>{fmt.toUpperCase()}</strong>
+                      <span className="video-upload__meta-subvalue">
+                        {formatFileSize(file.size)}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
               ) : (
                 <>
@@ -193,6 +194,85 @@ export function VideoUploadCard() {
             >
               <track kind="captions" label="Captions unavailable" />
             </video>
+
+            {(isExtractingThumbnail || thumbnailUrl) && (
+              <div className="video-upload__thumbnail-strip">
+                <div className="video-upload__thumbnail-frame">
+                  {thumbnailUrl ? (
+                    <>
+                      <img
+                        src={thumbnailUrl}
+                        alt="Best frame thumbnail"
+                        className="video-upload__thumbnail"
+                      />
+                      <div className="video-upload__thumbnail-overlay">
+                        <button
+                          type="button"
+                          className="video-upload__thumb-action"
+                          title="Download thumbnail"
+                          onClick={downloadThumbnail}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M12 4v12M8 12l4 4 4-4" />
+                            <path d="M4 20h16" />
+                          </svg>
+                        </button>
+                        <a
+                          href={thumbnailUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="video-upload__thumb-action"
+                          title="View full size"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </a>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="video-upload__thumbnail-skeleton" />
+                  )}
+                </div>
+                <div className="video-upload__thumbnail-meta">
+                  <span className="video-upload__thumbnail-eyebrow">
+                    Best frame
+                  </span>
+                  <strong className="video-upload__thumbnail-time">
+                    {isExtractingThumbnail
+                      ? "Analysing…"
+                      : `${thumbnail!.timestampSeconds.toFixed(2)}s`}
+                  </strong>
+                  <p className="video-upload__thumbnail-desc">
+                    Selected by sharpness, contrast&nbsp;&amp; brightness
+                    scoring
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="video-upload__empty">
