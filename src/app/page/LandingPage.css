@@ -1,0 +1,218 @@
+.landing {
+  display: grid;
+  gap: 28px;
+}
+
+/* ── Hero ─────────────────────────────────────────────── */
+
+.landing__hero {
+  display: grid;
+  gap: 20px;
+}
+
+.landing__eyebrow {
+  color: var(--brand-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.landing__title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+  max-width: 14ch;
+}
+
+.landing__lead {
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+.landing__ctas {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.landing__cta {
+  border-radius: 999px;
+  display: inline-flex;
+  font-weight: 700;
+  padding: 14px 24px;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.landing__cta--primary {
+  background: var(--brand);
+  color: #f8fffd;
+}
+
+.landing__cta--primary:hover {
+  background: var(--brand-strong);
+  transform: translateY(-1px);
+}
+
+.landing__cta--secondary {
+  background: rgba(14, 143, 111, 0.1);
+  border: 1px solid rgba(14, 143, 111, 0.22);
+  color: var(--brand-strong);
+}
+
+.landing__cta--secondary:hover {
+  background: rgba(14, 143, 111, 0.18);
+  transform: translateY(-1px);
+}
+
+/* ── Section shared ───────────────────────────────────── */
+
+.landing__section-title {
+  color: var(--ink);
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin-bottom: 16px;
+}
+
+/* ── How it works ─────────────────────────────────────── */
+
+.landing__steps {
+  display: grid;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 720px) {
+  .landing__steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.landing__step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.landing__step-number {
+  color: var(--brand);
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.landing__step-heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+}
+
+.landing__step-body {
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Try it cards ─────────────────────────────────────── */
+
+.landing__cards {
+  display: grid;
+  gap: 14px;
+}
+
+@media (min-width: 600px) {
+  .landing__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.landing__card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.landing__card-icon {
+  align-items: center;
+  border-radius: 14px;
+  display: inline-flex;
+  height: 52px;
+  justify-content: center;
+  width: 52px;
+}
+
+.landing__card-icon--image {
+  background: rgba(14, 143, 111, 0.1);
+  color: var(--brand-strong);
+}
+
+.landing__card-icon--video {
+  background: rgba(246, 133, 71, 0.12);
+  color: #5c1a00;
+}
+
+.landing__card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.landing__card-body {
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.landing__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.landing__badge {
+  background: rgba(14, 143, 111, 0.08);
+  border: 1px solid rgba(14, 143, 111, 0.2);
+  border-radius: 999px;
+  color: var(--brand-strong);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+}
+
+.landing__card-link {
+  color: var(--brand-strong);
+  font-size: 0.93rem;
+  font-weight: 700;
+  margin-top: auto;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.landing__card-link:hover {
+  color: var(--brand);
+}
